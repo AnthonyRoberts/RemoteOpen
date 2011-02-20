@@ -1,0 +1,3 @@
+This Processing script sends UDP commands to the ServerRoomAccess Arduino project. Commands are activate via the keyboard using the first letter - eg. L for LED test. If the Arduino sends OK back then the background will briefly flash green.
+
+
