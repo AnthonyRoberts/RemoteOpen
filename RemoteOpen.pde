@@ -9,6 +9,7 @@ UDP udp;  // define the UDP object
 PFont fontA;
 int openMinutes = 15;
 PImage smartie;
+int dayOfWeek = 1;
 
 void setup() {
   size(300, 300);
@@ -30,6 +31,7 @@ void draw()
   text("Secure Mode", 10, 200);
   text("View Log", 10, 250);
   showOpenMinutes();
+  showDayOfWeek();
 }
 
 void showOpenMinutes() {
@@ -37,6 +39,22 @@ void showOpenMinutes() {
   rect(200, 10, 80, 50);
   fill(0);
   text(openMinutes, 210, 50);
+}
+
+void showDayOfWeek() {
+  String shortDOW[] = new String[7];
+  shortDOW[0] = "Mon";
+  shortDOW[1] = "Tue";
+  shortDOW[2] = "Wed";
+  shortDOW[3] = "Thu";
+  shortDOW[4] = "Fri";
+  shortDOW[5] = "Sat";
+  shortDOW[6] = "Sun";
+
+  fill(150);
+  rect(200, 110, 80, 50);
+  fill(0);
+  text(shortDOW[dayOfWeek-1], 210, 150);
 }
 
 void keyPressed() {
@@ -86,15 +104,21 @@ void keyPressed() {
       viewAccessLog();
       break;
 
+    case ']':
+      if (++dayOfWeek > 7) dayOfWeek = 1;
+      showDayOfWeek();
+      break;
+
+    case '[':
+      if (--dayOfWeek < 1) dayOfWeek = 7;
+      showDayOfWeek();
+      break;
+
     case 't':
-      GregorianCalendar gcal = new GregorianCalendar();
-      int week = gcal.getActualMaximum(Calendar.DAY_OF_WEEK);
-      int dow = week - 1;
-      if (dow == 0) dow = 7;
       udpMessage[0] = 'T';
       udpMessage[1] = char(hour());        // Hour
       udpMessage[2] = char(minute());      // Minute
-      udpMessage[3] = char(dow);           // Day of the Week (1 - 7)      
+      udpMessage[3] = char(dayOfWeek);     // Day of the Week (1 - 7)      
       udpMessage[4] = char(day());         // Date      
       udpMessage[5] = char(month());       // Month      
       udpMessage[6] = char(year() - 2000); // Year   
