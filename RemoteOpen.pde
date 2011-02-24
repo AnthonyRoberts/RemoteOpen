@@ -43,18 +43,18 @@ void showOpenMinutes() {
 
 void showDayOfWeek() {
   String shortDOW[] = new String[7];
-  shortDOW[0] = "Mon";
-  shortDOW[1] = "Tue";
-  shortDOW[2] = "Wed";
-  shortDOW[3] = "Thu";
-  shortDOW[4] = "Fri";
-  shortDOW[5] = "Sat";
-  shortDOW[6] = "Sun";
+  shortDOW[0] = "Sun";
+  shortDOW[1] = "Mon";
+  shortDOW[2] = "Tue";
+  shortDOW[3] = "Wed";
+  shortDOW[4] = "Thu";
+  shortDOW[5] = "Fri";
+  shortDOW[6] = "Sat";
 
   fill(150);
   rect(200, 110, 80, 50);
   fill(0);
-  text(shortDOW[dayOfWeek-1], 210, 150);
+  text(shortDOW[dayOfWeek], 210, 150);
 }
 
 void keyPressed() {
@@ -105,12 +105,12 @@ void keyPressed() {
       break;
 
     case ']':
-      if (++dayOfWeek > 7) dayOfWeek = 1;
+      if (++dayOfWeek > 6) dayOfWeek = 0;
       showDayOfWeek();
       break;
 
     case '[':
-      if (--dayOfWeek < 1) dayOfWeek = 7;
+      if (--dayOfWeek < 0) dayOfWeek = 6;
       showDayOfWeek();
       break;
 
